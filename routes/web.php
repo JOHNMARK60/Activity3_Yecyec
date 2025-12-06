@@ -1,10 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use app\Http\Controllers\ComponentDemoController;
-
+use App\Http\Middleware\CheckRole;  
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/components-demo', [ComponentDemoController::class, 'index']);
+// Register the middleware directly in the route (class-based middleware)
+Route::get('/admin-dashboard', function () {
+    return "WELCOME ADMIN!.";
+})->middleware(CheckRole::class . ':admin');
